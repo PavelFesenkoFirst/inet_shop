@@ -1,0 +1,22 @@
+{% load custom_tags %}
+
+<div class="text-center">
+    {% if page_obj.has_previous %}
+        <a href="?{% url_replace request page=page_obj.previous_page_number %}" class="btn btn-outline-primary">prev</a>
+    {% else %}
+        <a href="#" class="btn btn-outline-primary disabled">prev</a>
+    {% endif %}
+
+    {% for page in page_obj.paginator.page_range %}
+        <a
+            href="?{% url_replace request page=page %}"
+            class="btn btn-outline-primary {% if request.GET.page == page %}disabled{% endif %}"
+        >{{ page }}</a>
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?{% url_replace request page=page_obj.next_page_number %}" class="btn btn-outline-primary">next</a>
+    {% else %}
+        <a href="#" class="btn btn-outline-primary disabled">next</a>
+    {% endif %}
+</div>

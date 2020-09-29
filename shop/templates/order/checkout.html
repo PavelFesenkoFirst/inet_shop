@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static custom_filters %}
+
+{% block main %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Оформление заказа</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% if user.is_authenticated %}
+            Привет, {{ user }}!
+            <form class="form-group" action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="address" class="form-control" placeholder="Адрес доставки" required>
+                <input type="text" name="comment" class="form-control" placeholder="Комментарий к заказу">
+                <button class="btn btn-secondary btn-block" type="submit">Заказать</button>
+            </form>
+            {% else %}
+            Введите необходимую информацию или <a href="" data-toggle="modal" data-target="#login">Войдите</a>
+            <form class="form-group" action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="name" class="form-control" placeholder="Имя" required>
+                <input type="text" name="surname" class="form-control" placeholder="Фамилия" required>
+                <input type="text" name="phone" class="form-control" placeholder="Телефон" required>
+                <input type="email" name="email" class="form-control" placeholder="Email" required>
+                <input type="text" name="address" class="form-control" placeholder="Адрес доставки" required>
+                <input type="text" name="comment" class="form-control" placeholder="Комментарий к заказу">
+                <button class="btn btn-secondary btn-block" type="submit">Заказать</button>
+            </form>
+            {% endif %}
+        </div>
+        <div class="col">
+            Корзина:<br>
+            {% for item in cart %}
+            <div class="row">
+                {% with product=item.product %}
+                <div class="col">{{ product.title }} x {{ item.quantity }}</div>
+                <div class="col">{{ item.total_price }} грн.</div>
+                <hr>
+                {% endwith %}
+            </div>
+            {% empty %}
+            <span class="h4">Корзина пуста</span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock main %}

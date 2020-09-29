@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <form method="POST">
+        {% csrf_token %}
+        {% comment %} {{ form.as_p }} {% endcomment %}
+        {{ form.errors.email }}
+        <input name="email" type="email" class="form-control" placeholder="Email" autofocus required>
+        {{ form.errors.phone }}
+        <input name="phone" type="text" class="form-control" placeholder="Телефон" required>
+        <input name="name" type="text" class="form-control" placeholder="Имя" required>
+        <input name="subject" type="text" class="form-control" placeholder="Тема" required>
+        <input name="message" type="text" class="form-control" placeholder="Сообщение">
+        <button type="submit">Отправить</button>
+    </form>
+{% endblock main %}

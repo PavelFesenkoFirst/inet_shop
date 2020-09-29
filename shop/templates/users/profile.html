@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">{{ user.name }} {{ user.surname }}</h1>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="text-center mb-4">
+        <p class="h3">Бонусы: {{ user.bonus }} грн.</p>
+    </div>
+
+    <div class="text-center mb-4">
+        <p class="h3">Потраченные деньги: 123 грн.</p>
+    </div>
+
+    <div class="text-center mb-4">
+        <button id="btn-contact" data-toggle="modal" data-target="#contact"
+            class="btn btn-success btn-block follow">Personal information</button>
+    </div>
+
+    <span class="h3">Ваши заказы</span>
+    {% for order in user.order_set.all %}
+    <div class="media text-muted pt-3">
+        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+            <strong class="d-block text-gray-dark">Заказ #{{ order.id }}</strong>
+            <span>Оформлен: {{ order.created_at }}</span><br>
+            <a href="#">Детали</a>
+        </p>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <form class="form-group" action="" method="">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contact">Персональная информация</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label>Имя</label>
+                    <input type="text" name="first_name" class="form-control" value="{{ user.name }}">
+                    <label>Фамилия</label>
+                    <input type="text" name="last_name" class="form-control" value="{{ user.surname }}">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ user.email }}">
+                    <label>Телефон</label>
+                    <input type="text" name="phone" class="form-control" value="{{ user.phone }}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Обновить</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock main %}

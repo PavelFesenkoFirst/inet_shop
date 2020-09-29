@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Корзина</h1>
+    </div>
+</div>
+
+<div class="container">
+    {% for item in cart %}
+        {% with product=item.product %}
+        <div class="row">
+            <div class="col col-md-2">
+                <a href="{{ product.get_absolute_url }}">
+                    {% if product.image %}
+                    <img class="img-responsive" src="{{ product.image.url }}" alt="{{ product.title }}" height="80">
+                    {% else %}
+                    <img class="img-responsive" src="{% static 'img/no_img.png' %}" alt="{{ product.title }}" height="80">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col">
+                <h4>
+                    <small>{{ product.title }}</small>
+                </h4>
+            </div>
+            <div class="col-4 row">
+                <div class="col text-md-right">
+                    <h6>
+                        {{ product.actual_price }} грн. <span class="text-muted">x</span>
+                        {{ item.quantity }} <span class="text-muted"></span>
+                        <strong>{{ item.total_price }} грн. <span class="text-muted"></span></strong>
+                    </h6>
+                </div>
+                <form class="col text-md-right" action="{% url 'order:cart-remove' product.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger btn-xs">x</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        {% endwith %}
+    {% empty %}
+        <span class="h4">Корзина пуста</span>
+    {% endfor %}
+    {% if cart %}
+    <div class="form-group btn-block btn-group">
+        <a href="{% url 'order:cart-clear' %}" class="btn btn-block btn-danger mt-3">Очистить корзину</a>
+        <a href="{% url 'order:checkout' %}" class="btn btn-block btn-success mt-3">Оформить заказ</a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock main %}

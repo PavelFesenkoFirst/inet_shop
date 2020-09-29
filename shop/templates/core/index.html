@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static custom_filters %}
+
+{% block main %}
+    <div class="row">
+        {% include 'core/components/product_list.html' %}
+    </div>
+
+    <div class="div-btn">
+        <button id="testbtn" class="custom-btn" onclick="func();">Button</button>
+    </div>
+{% endblock main %}

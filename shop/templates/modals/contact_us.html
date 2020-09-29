@@ -1,0 +1,25 @@
+<div class="modal" id="contact-us">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form" action="{% url 'core:contact-us' %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h4 class="modal-title">Форма обратной связи</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <input name="email" type="email" class="form-control" placeholder="Email" autofocus required>
+                    <input name="phone" type="text" class="form-control" placeholder="Телефон" required>
+                    <input name="name" type="text" class="form-control" placeholder="Имя" required>
+                    <input name="subject" type="text" class="form-control" placeholder="Тема" required>
+                    <input name="message" type="text" class="form-control" placeholder="Сообщение">
+                </div>
+
+                <div class="modal-footer btn-block">
+                    <button type="submit" class="btn btn-outline-success btn-block">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

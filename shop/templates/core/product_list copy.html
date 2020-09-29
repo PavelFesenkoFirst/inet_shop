@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static custom_tags %}
+
+{% block content %}
+    <div id="products" class="row">
+        {% include 'core/components/product_list.html' %}
+    </div>
+
+    {% if is_paginated %}
+        {% comment %} {% include 'core/components/pagination.html' %} {% endcomment %}
+        <div class="text-center mb-3">
+            <button id="nextPage" type="button" class="btn btn-outline-primary" onclick="showNextPage();">Show more</button>
+        </div>
+    {% endif %}
+
+{% endblock content %}

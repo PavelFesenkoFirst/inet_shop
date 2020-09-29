@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        {% include 'core/components/product_list.html' with product_list=object_list %}
+    </div>
+
+    {% if is_paginated %}
+        {% include 'core/components/pagination.html' %}
+    {% endif %}
+{% endblock content %}

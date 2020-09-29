@@ -1,0 +1,38 @@
+{% load custom_tags %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'core:index' %}">Shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            {% if user.is_authenticated %}
+                <a href="{% url 'users:profile' %}" class="btn btn-primary my-2 my-sm-0 ml-auto">Личный кабинет, {{ user }}</a>
+                <a href="{% url 'users:logout' %}" class="btn btn-danger my-2 my-sm-0 ml-sm-2">Выйти</a>
+            {% else %}
+                <button type="button" class="btn btn-success my-2 my-sm-0 ml-auto login-modal" data-toggle="modal" data-target="#login">Войти</button>
+                <button type="button" class="btn btn-primary my-2 my-sm-0 ml-sm-2 register-modal" data-toggle="modal" data-target="#register">Зарегистрироваться</button>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+            <a class="p-2 text-muted" href="{% url 'core:index' %}">Главная</a>
+            <a class="p-2 text-muted" href="{% url 'core:product-list' %}">Все товары</a>
+            <a class="p-2 text-muted dropdown-toggle" href="#" id="dropdownCategories" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Категории</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownCategories">
+                {% for category in category_list %}
+                    <a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.title|title }} ({{ category.products.count }})</a>
+                {% endfor %}
+            </div>
+            <a class="p-2 text-muted" href="#">О нас</a>
+            <a class="p-2 text-muted" href="#">Контакты</a>
+            <a class="p-2 text-muted" href="{% url 'order:cart' %}">🛒Корзина</a>
+        </nav>
+    </div>
+</div>

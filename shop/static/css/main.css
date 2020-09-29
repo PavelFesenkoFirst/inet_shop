@@ -1,0 +1,37 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    padding-top: 56px;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.activator {
+    cursor: pointer;
+}
+
+.bg-primary {
+    background-color: #1a237e!important;
+}
+
+.custom-btn {
+    color: white;
+    border: none;
+    background-color: black;
+}
+
+.custom-btn:hover {
+    color: black;
+    background-color: white;
+}
+/*
+.div-btn button {
+
+}
+
+.div-btn > button {
+
+} */
